@@ -2,8 +2,10 @@
 
 namespace cms\payment\common\components;
 
+use Yii;
 use yii\base\BootstrapInterface;
 use yii\base\Component;
+use cms\payment\common\components\ProviderInterface;
 
 /**
  * Payment application component contains common information about payment providers and register payment module on bootstrap
@@ -35,6 +37,31 @@ class Payment extends Component implements BootstrapInterface
 				'route' => '/payment/fail/index',
 			],
 		], false);
+	}
+
+	/**
+	 * Return provider by name
+	 * @param string $name 
+	 * @return ProviderInterface|null
+	 */
+	public function getProvider($name)
+	{
+		if (!array_key_exists($name, $this->providers))
+			return null;
+
+		$provider = $this->providers[$name];
+
+		if (!($provider instanceof ProviderInterface)) {
+			$provider = Yii::createObject($provider);
+
+			if ($provider instanceof ProviderInterface) {
+				$this->providers[$name] = $provider;
+			} else {
+				$provider = null;
+			}
+		}
+
+		return $provider;
 	}
 
 }
