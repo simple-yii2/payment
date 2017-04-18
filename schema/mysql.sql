@@ -22,7 +22,8 @@ create table if not exists `PaymentInvoice`
 	`payDate` datetime default null,
 	`refundDate` datetime default null,
 	primary key (`id`),
-	key `user` (`user_id`)
+	key `user` (`user_id`),
+	key `model` (`modelClass`, `modelId`, `state`)
 ) engine InnoDB;
 
 create table if not exists `PaymentTransaction`
