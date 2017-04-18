@@ -20,6 +20,7 @@ create table if not exists `PaymentInvoice`
 	`state` int(10) not null,
 	`createDate` datetime not null,
 	`payDate` datetime default null,
+	`refundDate` datetime default null,
 	primary key (`id`),
 	key `user` (`user_id`)
 ) engine InnoDB;

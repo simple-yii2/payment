@@ -53,4 +53,10 @@ interface PayableInterface
 	 */
 	public function paymentSuccess();
 
+	/**
+	 * Callback when payment was return after successfully paid
+	 * @return void
+	 */
+	public function paymentRefund();
+
 }

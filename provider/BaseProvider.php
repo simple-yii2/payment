@@ -36,7 +36,7 @@ abstract class BaseProvider extends Object implements ProviderInterface
 		}
 
 		$invoice = new Invoice([
-			'provider' => $this->name(),
+			'provider' => get_class($this),
 			'user_id' => $user->id,
 			'modelClass' => get_class($model),
 			'modelId' => $model->paymentModelId(),

@@ -29,6 +29,10 @@ class Payment extends Component implements BootstrapInterface
 
 		$app->getUrlManager()->addRules([
 			[
+				'pattern' => '/payment/result/<name:[\w\.]+>',
+				'route' => '/payment/result/index',
+			],
+			[
 				'pattern' => '/payment/success/<name:[\w\.]+>',
 				'route' => '/payment/success/index',
 			],

@@ -7,14 +7,14 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 
 /**
- * Payment success controller
- * User redirects to this controller from processing center when payment is successfully
+ * Payment result controller
+ * Processing center sent request to notify module about payment
  */
-class SuccessController extends Controller
+class ResultController extends Controller
 {
 
 	/**
-	 * Process success payment request from processing center
+	 * Process result request from processing center
 	 * @param string $name provider name. This is key of provider application component, see [[Payment::providers]].
 	 * @return string
 	 */
@@ -24,7 +24,7 @@ class SuccessController extends Controller
 		if ($provider === null)
 			throw new BadRequestHttpException('Payment provider not found.');
 
-		$provider->success();
+		$provider->result();
 		Yii::$app->end();
 	}
 
