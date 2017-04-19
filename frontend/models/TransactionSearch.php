@@ -35,7 +35,9 @@ class TransactionSearch extends Transaction
 			$params = Yii::$app->getRequest()->get();
 
 		//ActiveQuery
-		$query = static::find()->orderBy(['date' => SORT_DESC, 'id' => SORT_DESC]);
+		$query = static::find()
+			->where(['user_id' => $this->user_id])
+			->orderBy(['date' => SORT_DESC, 'id' => SORT_DESC]);
 
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
@@ -46,7 +48,6 @@ class TransactionSearch extends Transaction
 			return $dataProvider;
 
 		//search
-		$query->andFilterWhere(['user_id' => $this->user_id]);
 
 		return $dataProvider;
 	}

@@ -15,7 +15,6 @@ Yii::$app->params['breadcrumbs'] = [$title];
 <?= GridView::widget([
 	'dataProvider' => $search->getDataProvider(),
 	'summary' => '',
-	// 'tableOptions' => ['class' => 'table table-condensed'],
 	'columns'=>[
 		[
 			'attribute' => 'date',
