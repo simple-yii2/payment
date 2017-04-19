@@ -138,7 +138,8 @@ class Robokassa extends BaseProvider
 			throw new BadRequestHttpException(Yii::t('payment', 'Error while processing request.'));
 
 		//process payment for invoice
-		$this->processInvoice($invoice);
+		if ($invoice->state != Invoice::STATE_SUCCESS)
+			$this->processInvoice($invoice);
 
 		Yii::$app->getResponse()->redirect($invoice->url);
 	}
@@ -164,7 +165,8 @@ class Robokassa extends BaseProvider
 			throw new BadRequestHttpException(Yii::t('payment', 'Error while processing request.'));
 
 		//process payment for invoice
-		$this->processInvoice($invoice);
+		if ($invoice->state != Invoice::STATE_FAIL && $invoice->state != Invoice::STAE_REFUND)
+			$this->processInvoice($invoice);
 
 		Yii::$app->getResponse()->redirect(Yii::$app->getUser()->getReturnUrl());
 	}

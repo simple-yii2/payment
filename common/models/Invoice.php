@@ -75,7 +75,7 @@ class Invoice extends ActiveRecord
 
 		//model
 		if ($model = $this->getModel())
-			$provider->pay($model, $this->url);
+			$provider->payFromAccount($model, $this->url);
 
 		return true;
 	}

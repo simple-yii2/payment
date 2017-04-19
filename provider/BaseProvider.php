@@ -23,31 +23,48 @@ abstract class BaseProvider extends Object implements ProviderInterface
 		if ($model->isPaid())
 			return false;
 
-		$amount = $model->paymentAmount();
-		$description = $model->paymentDescription();
-		$user = $model->paymentUser();
-		$account = Account::findByUser($user->id);
+		//try to pay from account
+		$amount = $this->payFromAccount($model, $url);
+		if (is_bool($amount))
+			return $amount;
 
-		if ($amount <= $account->amount) {
-			$account->addTransaction(-$amount, $description, $url);
-
-			$model->paymentSuccess();
-			return true;
-		}
-
+		//create invoice and try to pay via payment provider
 		$invoice = new Invoice([
 			'provider' => get_class($this),
-			'user_id' => $user->id,
+			'user_id' => $model->paymentUser()->id,
 			'modelClass' => get_class($model),
 			'modelId' => $model->paymentModelId(),
-			'amount' => $amount - $account->amount,
-			'description' => $description,
+			'amount' => $amount,
+			'description' => $model->paymentDescription(),
 			'url' => $url,
 			'createDate' => gmdate('Y-m-d H:i:s'),
 		]);
 		$invoice->save();
 
 		$this->payInvoice($invoice);
+	}
+
+	/**
+	 * Try to pay model with account
+	 * @param PayableInterface $model 
+	 * @param string|null $url 
+	 * @return float|true|false if model is paid returns false. If payment is success returns true. If there are not enought money, returns amount need to pay.
+	 */
+	public function payFromAccount(PayableInterface $model, $url = null)
+	{
+		if ($model->isPaid())
+			return false;
+
+		$amount = $model->paymentAmount();
+		$account = Account::findByUser($model->paymentUser()->id);
+
+		if ($amount > $account->amount)
+			return $amount - $account->amount;
+
+		$account->addTransaction(-$amount, $model->paymentDescription(), $url);
+		$model->paymentSuccess();
+
+		return true;
 	}
 
 	/**
