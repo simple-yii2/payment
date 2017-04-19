@@ -2,7 +2,7 @@
     "name": "simple-yii2/payment",
     "description": "Payment module for Yii 2 framework",
     "type": "yii2-module",
-    "keywords": ["yii2","module","payment"],
+    "keywords": ["yii2","module","payment","robokassa"],
     "license": "BSD-3-Clause",
     "authors": [
         {

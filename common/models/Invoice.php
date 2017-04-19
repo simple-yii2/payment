@@ -71,7 +71,7 @@ class Invoice extends ActiveRecord
 			'date' => Yii::$app->formatter->asDate($this->createDate, 'short'),
 		]);
 		$account = Account::findByUser($this->user_id);
-		$account->addTransaction($this->amount, $description, $this->url);
+		$account->addTransaction($this->amount, $description);
 
 		//model
 		if ($model = $this->getModel())
