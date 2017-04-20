@@ -7,7 +7,6 @@ use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use cms\payment\backend\models\InvoiceSearch;
-use cms\payment\common\models\Account;
 
 /**
  * Payment account invoices controller

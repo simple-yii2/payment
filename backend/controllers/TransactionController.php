@@ -7,7 +7,6 @@ use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use cms\payment\backend\models\TransactionSearch;
-use cms\payment\common\models\Account;
 
 /**
  * Payment account transaction controller
@@ -32,21 +31,13 @@ class TransactionController extends Controller
 
 	/**
 	 * List
-	 * @param int $id account id
 	 * @return string
 	 */
-	public function actionIndex($id)
+	public function actionIndex()
 	{
-		$model = Account::findOne($id);
-		if ($model === null)
-			throw new BadRequestHttpException(Yii::t('payment', 'Item not found.'));
-
-		$search = new TransactionSearch([
-			'user_id' => $model->user_id,
-		]);
+		$search = new TransactionSearch;
 
 		return $this->render('index', [
-			'model' => $model,
 			'search' => $search,
 		]);
 	}

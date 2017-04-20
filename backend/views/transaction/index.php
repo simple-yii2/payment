@@ -4,23 +4,24 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-$title = $model->getUsername();
+$title = Yii::t('payment', 'Transactions');
 
 $this->title = $title . ' | ' . Yii::$app->name;
 
 $this->params['breadcrumbs'] = [
-	['label' => Yii::t('payment', 'Accounts'), 'url' => ['account/index']],
 	$title,
 ];
 
 ?>
-<h1><?= Html::encode($title) ?> <small><?= Yii::t('payment', 'Transactions') ?></small></h1>
+<h1><?= Html::encode($title) ?></h1>
 
 <?= GridView::widget([
 	'dataProvider' => $search->getDataProvider(),
+	'filterModel' => $search,
 	'summary' => '',
 	'tableOptions' => ['class' => 'table table-condensed'],
 	'columns' => [
+		'user_email',
 		[
 			'attribute' => 'date',
 			'enableSorting' => false,
