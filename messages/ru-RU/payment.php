@@ -5,7 +5,7 @@ return [
 	'Accounts' => 'Лицевые счета',
 	'Account' => 'Лицевой счет',
 	'Payment providers' => 'Платежные системы',
-	'Invoices' => 'Счета',
+	'Invoices' => 'Счета на оплату',
 	'Transactions' => 'Операции',
 	'Invoice #{number}' => 'Счет №{number}',
 

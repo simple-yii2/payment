@@ -41,7 +41,10 @@ class Module extends BackendModule {
 			return [];
 
 		return [
-			['label' => Yii::t('payment', 'Payment'), 'url' => ["$base/payment/account/index"]],
+			['label' => Yii::t('payment', 'Payment providers'), 'url' => ["$base/payment/provider/index"]],
+			['label' => Yii::t('payment', 'Accounts'), 'url' => ["$base/payment/account/index"]],
+			['label' => Yii::t('payment', 'Invoices'), 'url' => ["$base/payment/invoice/index"]],
+			['label' => Yii::t('payment', 'Transactions'), 'url' => ["$base/payment/transaction/index"]],
 		];
 	}
 

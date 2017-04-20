@@ -5,6 +5,7 @@ namespace cms\payment\backend\models;
 use Yii;
 use yii\data\ActiveDataProvider;
 use cms\payment\common\models\Account;
+use cms\user\common\models\User;
 
 /**
  * Account search model
@@ -63,6 +64,15 @@ class AccountSearch extends Account
 		$query->andFilterWhere(['like', 'User.email', $this->_userEmail]);
 
 		return $dataProvider;
+	}
+
+	/**
+	 * User relation
+	 * @return yii\db\ActiveQueryInterface
+	 */
+	public function getUser()
+	{
+		return $this->hasOne(User::className(), ['id' => 'user_id']);
 	}
 
 	/**

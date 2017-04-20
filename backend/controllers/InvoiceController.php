@@ -32,21 +32,13 @@ class InvoiceController extends Controller
 
 	/**
 	 * List
-	 * @param int $id account id
 	 * @return string
 	 */
-	public function actionIndex($id)
+	public function actionIndex()
 	{
-		$model = Account::findOne($id);
-		if ($model === null)
-			throw new BadRequestHttpException(Yii::t('payment', 'Item not found.'));
-
-		$search = new InvoiceSearch([
-			'user_id' => $model->user_id,
-		]);
+		$search = new InvoiceSearch;
 
 		return $this->render('index', [
-			'model' => $model,
 			'search' => $search,
 		]);
 	}

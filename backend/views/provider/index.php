@@ -9,7 +9,6 @@ $title = Yii::t('payment', 'Payment providers');
 $this->title = $title . ' | ' . Yii::$app->name;
 
 $this->params['breadcrumbs'] = [
-	['label' => Yii::t('payment', 'Accounts'), 'url' => ['account/index']],
 	$title,
 ];
 

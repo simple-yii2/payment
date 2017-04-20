@@ -14,19 +14,13 @@ $this->params['breadcrumbs'] = [
 ?>
 <h1><?= Html::encode($title) ?></h1>
 
-<div class="btn-toolbar" role="toolbar">
-	<?= Html::a(Yii::t('payment', 'Payment providers'), ['provider/index'], ['class' => 'btn btn-primary']) ?>
-</div>
-
 <?= GridView::widget([
 	'dataProvider' => $search->getDataProvider(),
 	'filterModel' => $search,
 	'summary' => '',
 	'tableOptions' => ['class' => 'table table-condensed'],
 	'columns' => [
-		[
-			'attribute' => 'userEmail',
-		],
+		'userEmail',
 		[
 			'attribute' => 'amount',
 			'value' => function($model, $key, $index, $column) {
@@ -40,6 +34,9 @@ $this->params['breadcrumbs'] = [
 			'template' => '{invoice} {transaction}',
 			'buttons' => [
 				'invoice' => function($url, $model, $key) {
+					if ($model->user === null)
+						return '';
+
 					$title = Yii::t('payment', 'Invoices');
 
 					return Html::a('<span class="glyphicon glyphicon-credit-card"></span>', $url, [
@@ -49,6 +46,9 @@ $this->params['breadcrumbs'] = [
 					]);
 				},
 				'transaction' => function($url, $model, $key) {
+					if ($model->user === null)
+						return '';
+
 					$title = Yii::t('payment', 'Transactions');
 
 					return Html::a('<span class="glyphicon glyphicon-transfer"></span>', $url, [
@@ -59,7 +59,12 @@ $this->params['breadcrumbs'] = [
 				},
 			],
 			'urlCreator' => function($action, $model, $key, $index) {
-				return [$action . '/index', 'id' => $model->id];
+				$route = [$action . '/index'];
+
+				if ($model->user)
+					$route['search[user_email]'] = $model->user->email;
+
+				return $route;
 			},
 		],
 	],
