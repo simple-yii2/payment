@@ -1,0 +1,48 @@
+<?php
+
+namespace cms\payment\backend;
+
+use Yii;
+
+use cms\components\BackendModule;
+
+/**
+ * Payment backend module
+ */
+class Module extends BackendModule {
+
+	/**
+	 * @inheritdoc
+	 */
+	public static function moduleName()
+	{
+		return 'payment';
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public static function cmsSecurity()
+	{
+		$auth = Yii::$app->getAuthManager();
+		if ($auth->getRole('Payment') === null) {
+			//role
+			$role = $auth->createRole('Payment');
+			$auth->add($role);
+		}
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public static function cmsMenu($base)
+	{
+		if (!Yii::$app->user->can('Payment'))
+			return [];
+
+		return [
+			['label' => Yii::t('payment', 'Payment'), 'url' => ["$base/payment/account/index"]],
+		];
+	}
+
+}

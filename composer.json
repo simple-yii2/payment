@@ -12,7 +12,8 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
-        "simple-yii2/cms": ">=1.0.0"
+        "simple-yii2/cms": ">=1.0.0",
+        "simple-yii2/user": ">=1.0.0"
     },
     "autoload": {
         "psr-4": {

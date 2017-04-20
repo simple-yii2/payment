@@ -68,4 +68,20 @@ class Payment extends Component implements BootstrapInterface
 		return $provider;
 	}
 
+	/**
+	 * Retirn all initialized data providers
+	 * @return ProviderInterface[]
+	 */
+	public function getAllProviders()
+	{
+		$providers = [];
+		foreach ($this->providers as $name => $value) {
+			$provider = $this->getProvider($name);
+			if ($provider)
+				$providers[$name] = $provider;
+		}
+
+		return $providers;
+	}
+
 }

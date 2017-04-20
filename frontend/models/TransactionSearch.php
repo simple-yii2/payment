@@ -15,7 +15,8 @@ class TransactionSearch extends Transaction
 	/**
 	 * @inheritdoc
 	 */
-	public function attributeLabels() {
+	public function attributeLabels()
+	{
 		return [
 			'date' => Yii::t('payment', 'Date'),
 			'receipt' => Yii::t('payment', 'Receipt'),
@@ -30,7 +31,8 @@ class TransactionSearch extends Transaction
 	 * @param array|null $params Attributes array
 	 * @return ActiveDataProvider
 	 */
-	public function getDataProvider($params = null) {
+	public function getDataProvider($params = null)
+	{
 		if ($params === null)
 			$params = Yii::$app->getRequest()->get();
 
