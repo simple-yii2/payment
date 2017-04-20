@@ -19,6 +19,13 @@ class Invoice extends ActiveRecord
 	const STATE_FAIL = 2;
 	const STATE_REFUND = 3;
 
+	private static $stateNames = [
+		self::STATE_NEW => 'New',
+		self::STATE_SUCCESS => 'Success',
+		self::STATE_FAIL => 'Fail',
+		self::STATE_REFUND => 'Refund',
+	];
+
 	/**
 	 * @inheritdoc
 	 */
@@ -28,14 +35,28 @@ class Invoice extends ActiveRecord
 	}
 
 	/**
+	 * Return state names
+	 * @return string[]
+	 */
+	public static function getStateNames()
+	{
+		$names = [];
+		foreach (self::$stateNames as $state => $name) {
+			$names[$state] = Yii::t('payment', $name);
+		}
+
+		return $names;
+	}
+
+	/**
 	 * @inheritdoc
 	 */
-	public function init()
+	public function __construct($config = [])
 	{
-		parent::init();
+		if (!array_key_exists('state', $config))
+			$config['state'] = self::STATE_NEW;
 
-		if ($this->state === null)
-			$this->state = self::STATE_NEW;
+		parent::__construct($config);
 	}
 
 	/**

@@ -4,7 +4,6 @@ namespace cms\payment\backend\models;
 
 use Yii;
 use yii\data\ActiveDataProvider;
-use cms\payment\common\models\Account;
 use cms\payment\common\models\Invoice;
 
 /**
@@ -14,17 +13,12 @@ class InvoiceSearch extends Invoice
 {
 
 	/**
-	 * @var Account
-	 */
-	private $_model;
-
-	/**
 	 * @inheritdoc
-	 * @param Account $model 
 	 */
-	public function __construct(Account $model, $config = [])
+	public function __construct($config = [])
 	{
-		$this->_model = $model;
+		if (!array_key_exists('state', $config))
+			$config['state'] = null;
 
 		parent::__construct($config);
 	}
@@ -35,6 +29,12 @@ class InvoiceSearch extends Invoice
 	public function attributeLabels()
 	{
 		return [
+			'id' => Yii::t('payment', 'Number'),
+			'createDate' => Yii::t('payment', 'Date'),
+			'provider' => Yii::t('payment', 'Payment provider'),
+			'amount' => Yii::t('payment', 'Amount'),
+			'description' => Yii::t('payment', 'Description'),
+			'state' => Yii::t('payment', 'State'),
 		];
 	}
 
@@ -44,6 +44,7 @@ class InvoiceSearch extends Invoice
 	public function rules()
 	{
 		return [
+			[['id', 'state'], 'integer'],
 		];
 	}
 
@@ -58,7 +59,9 @@ class InvoiceSearch extends Invoice
 			$params = Yii::$app->getRequest()->get();
 
 		//ActiveQuery
-		$query = static::find()->joinWith(['user']);
+		$query = static::find()
+		->where(['user_id' => $this->user_id])
+		->orderBy(['createDate' => SORT_DESC, 'id' => SORT_DESC]);
 
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
@@ -69,7 +72,8 @@ class InvoiceSearch extends Invoice
 			return $dataProvider;
 
 		//search
-		$query->andFilterWhere(['like', 'User.email', $this->_userEmail]);
+		$query->andFilterWhere(['id' => $this->id]);
+		$query->andFilterWhere(['state' => $this->state]);
 
 		return $dataProvider;
 	}

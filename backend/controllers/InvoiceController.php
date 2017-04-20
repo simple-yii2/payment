@@ -2,6 +2,7 @@
 
 namespace cms\payment\backend\controllers;
 
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -40,7 +41,9 @@ class InvoiceController extends Controller
 		if ($model === null)
 			throw new BadRequestHttpException(Yii::t('payment', 'Item not found.'));
 
-		$search = new InvoiceSearch($model);
+		$search = new InvoiceSearch([
+			'user_id' => $model->user_id,
+		]);
 
 		return $this->render('index', [
 			'model' => $model,

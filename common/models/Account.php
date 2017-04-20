@@ -46,10 +46,10 @@ class Account extends ActiveRecord
 	 * Add transaction associated with user and update amount on accaunt
 	 * @param float $amount 
 	 * @param string $description 
-	 * @param string $url 
+	 * @param string|null $url 
 	 * @return void
 	 */
-	public function addTransaction($amount, $description, $url)
+	public function addTransaction($amount, $description, $url = null)
 	{
 		$transaction = new Transaction([
 			'user_id' => $this->user_id,
