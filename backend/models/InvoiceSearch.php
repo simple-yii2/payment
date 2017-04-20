@@ -35,6 +35,8 @@ class InvoiceSearch extends Invoice
 			'amount' => Yii::t('payment', 'Amount'),
 			'description' => Yii::t('payment', 'Description'),
 			'state' => Yii::t('payment', 'State'),
+			'payDate' => Yii::t('payment', 'Pay date'),
+			'refundDate' => Yii::t('payment', 'Refund date'),
 		];
 	}
 

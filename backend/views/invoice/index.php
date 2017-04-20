@@ -4,7 +4,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-$title = Yii::t('payment', 'Invoices');
+$title = $model->getUsername();
 
 $this->title = $title . ' | ' . Yii::$app->name;
 
@@ -14,7 +14,7 @@ $this->params['breadcrumbs'] = [
 ];
 
 ?>
-<h1><?= Html::encode($title) ?></h1>
+<h1><?= Html::encode($title) ?> <small><?= Yii::t('payment', 'Invoices') ?></small></h1>
 
 <?= GridView::widget([
 	'dataProvider' => $search->getDataProvider(),
@@ -35,16 +35,6 @@ $this->params['breadcrumbs'] = [
 		],
 		'id',
 		[
-			'attribute' => 'provider',
-			'value' => function($model, $key, $index, $column) {
-				$provider = Yii::createObject($model->provider);
-				if ($provider === null)
-					return null;
-
-				return $provider->name();
-			}
-		],
-		[
 			'attribute' => 'amount',
 			'value' => function($model, $key, $index, $column) {
 				return Yii::$app->formatter->asDecimal($model->amount, 2);
@@ -57,6 +47,11 @@ $this->params['breadcrumbs'] = [
 			'value' => function($model, $key, $index, $column) {
 				return ArrayHelper::getValue($model::getStateNames(), $model->state);
 			}
+		],
+		[
+			'class' => 'yii\grid\ActionColumn',
+			'headerOptions' => ['style' => 'width: 25px;'],
+			'template' => '{view}',
 		],
 	],
 ]) ?>

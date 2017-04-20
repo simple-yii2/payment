@@ -60,6 +60,15 @@ class Invoice extends ActiveRecord
 	}
 
 	/**
+	 * Account relation
+	 * @return yii\db\ActiveQueryInterface
+	 */
+	public function getAccount()
+	{
+		return $this->hasOne(Account::className(), ['user_id' => 'user_id']);
+	}
+
+	/**
 	 * Getter for model associated with invoice
 	 * @return PayableInterface|null
 	 */

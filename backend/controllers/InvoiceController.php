@@ -6,8 +6,8 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use cms\payment\common\models\Account;
 use cms\payment\backend\models\InvoiceSearch;
+use cms\payment\common\models\Account;
 
 /**
  * Payment account invoices controller
@@ -48,6 +48,22 @@ class InvoiceController extends Controller
 		return $this->render('index', [
 			'model' => $model,
 			'search' => $search,
+		]);
+	}
+
+	/**
+	 * View
+	 * @param int $id 
+	 * @return string
+	 */
+	public function actionView($id)
+	{
+		$model = InvoiceSearch::findOne($id);
+		if ($model === null)
+			throw new BadRequestHttpException(Yii::t('payment', 'Item not found.'));
+
+		return $this->render('view', [
+			'model' => $model,
 		]);
 	}
 

@@ -7,6 +7,7 @@ return [
 	'Payment providers' => 'Платежные системы',
 	'Invoices' => 'Счета',
 	'Transactions' => 'Операции',
+	'Invoice #{number}' => 'Счет №{number}',
 
 	'Date' => 'Дата',
 	'Receipt' => 'Поступление',
@@ -18,11 +19,13 @@ return [
 	'Number' => 'Номер',
 	'Payment provider' => 'Платежная система',
 	'State' => 'Статус',
+	'Pay date' => 'Дата оплаты',
+	'Refund date' => 'Дата возврата',
 
 	'New' => 'Новый',
 	'Success' => 'Оплачен',
 	'Fail' => 'Отменен',
-	'Refund' => 'Возврат',
+	'Refund' => 'Возвращен',
 
 	'{provider} (Invoice #{number} of {date})' => '{provider} (Счет №{number} от {date})',
 	'Error while processing request.' => 'Во время выполнения запроса произошла ошибка.',

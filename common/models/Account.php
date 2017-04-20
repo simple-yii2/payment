@@ -3,6 +3,7 @@
 namespace cms\payment\common\models;
 
 use yii\db\ActiveRecord;
+use cms\user\common\models\User;
 
 /**
  * User paymant account
@@ -16,6 +17,24 @@ class Account extends ActiveRecord
 	public static function tableName()
 	{
 		return 'PaymentAccount';
+	}
+
+	/**
+	 * User relation
+	 * @return yii\db\ActiveQueryInterface
+	 */
+	public function getUser()
+	{
+		return $this->hasOne(User::className(), ['id' => 'user_id']);
+	}
+
+	/**
+	 * Getter for user name
+	 * @return string
+	 */
+	public function getUsername()
+	{
+		return $this->user ? $this->user->getUsername() : '';
 	}
 
 	/**
