@@ -16,7 +16,7 @@ class AccountSearch extends Account
 	/**
 	 * @var string user e-mail for search
 	 */
-	private $_userEmail;
+	private $_user_email;
 
 	/**
 	 * @inheritdoc
@@ -24,7 +24,7 @@ class AccountSearch extends Account
 	public function attributeLabels()
 	{
 		return [
-			'userEmail' => Yii::t('payment', 'User'),
+			'user_email' => Yii::t('payment', 'User'),
 			'amount' => Yii::t('payment', 'Amount'),
 		];
 	}
@@ -35,7 +35,7 @@ class AccountSearch extends Account
 	public function rules()
 	{
 		return [
-			['userEmail', 'safe'],
+			['user_email', 'string'],
 		];
 	}
 
@@ -61,7 +61,7 @@ class AccountSearch extends Account
 			return $dataProvider;
 
 		//search
-		$query->andFilterWhere(['like', 'User.email', $this->_userEmail]);
+		$query->andFilterWhere(['like', 'User.email', $this->_user_email]);
 
 		return $dataProvider;
 	}
@@ -79,16 +79,16 @@ class AccountSearch extends Account
 	 * User e-mail getter
 	 * @return string
 	 */
-	public function getUserEmail()
+	public function getUser_email()
 	{
-		if ($this->_userEmail !== null)
-			return $this->_userEmail;
+		if ($this->_user_email !== null)
+			return $this->_user_email;
 
 		$user = $this->user;
 		if ($user === null)
 			return null;
 
-		return $this->_userEmail = $user->email;
+		return $this->_user_email = $user->email;
 	}
 
 	/**
@@ -96,9 +96,9 @@ class AccountSearch extends Account
 	 * @param string $value 
 	 * @return void
 	 */
-	public function setUserEmail($value)
+	public function setUser_email($value)
 	{
-		$this->_userEmail = $value;
+		$this->_user_email = $value;
 	}
 
 }

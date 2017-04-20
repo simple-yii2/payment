@@ -20,7 +20,7 @@ $this->params['breadcrumbs'] = [
 	'summary' => '',
 	'tableOptions' => ['class' => 'table table-condensed'],
 	'columns' => [
-		'userEmail',
+		'user_email',
 		[
 			'attribute' => 'amount',
 			'value' => function($model, $key, $index, $column) {
