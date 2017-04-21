@@ -34,8 +34,8 @@ class TransactionSearch extends Transaction
 		return [
 			'user_email' => Yii::t('payment', 'User'),
 			'date' => Yii::t('payment', 'Date'),
-			'receipt' => Yii::t('payment', 'Receipt'),
-			'paid' => Yii::t('payment', 'Paid'),
+			'income' => Yii::t('payment', 'Income'),
+			'expense' => Yii::t('payment', 'Expense'),
 			'balance' => Yii::t('payment', 'Balance'),
 			'description' => Yii::t('payment', 'Description'),
 		];
@@ -113,30 +113,6 @@ class TransactionSearch extends Transaction
 	public function setUser_email($value)
 	{
 		$this->_user_email = $value;
-	}
-
-	/**
-	 * Receipt amount getter
-	 * @return string
-	 */
-	public function getReceipt()
-	{
-		if ($this->amount <= 0)
-			return '';
-
-		return $this->amount;
-	}
-
-	/**
-	 * Paid amount getter
-	 * @return string
-	 */
-	public function getPaid()
-	{
-		if ($this->amount >= 0)
-			return '';
-
-		return -$this->amount;
 	}
 
 }

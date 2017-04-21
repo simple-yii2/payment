@@ -31,10 +31,14 @@ create table if not exists `PaymentTransaction`
 	`id` int(10) not null auto_increment,
 	`user_id` int(10) not null,
 	`date` datetime not null,
-	`amount` decimal(12,2) not null,
+	`year` int(10) not null,
+	`month` int(10) not null,
+	`income` decimal(12,2) default 0,
+	`expense` decimal(12,2) default 0,
 	`description` varchar(200) default null,
 	`url` varchar(200) default null,
 	`balance` decimal(12,2) not null,
 	primary key (`id`),
-	key `user` (`user_id`, `date`)
+	key `user` (`user_id`, `date`),
+	key `turnover` (`user_id`, `year`, `month`)
 ) engine InnoDB;

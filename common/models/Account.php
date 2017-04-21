@@ -52,18 +52,21 @@ class Account extends ActiveRecord
 	}
 
 	/**
-	 * Add transaction associated with user and update amount on accaunt
+	 * Add income associated with user and update amount on accaunt
 	 * @param float $amount 
 	 * @param string $description 
 	 * @param string|null $url 
 	 * @return void
 	 */
-	public function addTransaction($amount, $description, $url = null)
+	public function addIncome($amount, $description, $url = null)
 	{
+		$d = time();
 		$transaction = new Transaction([
 			'user_id' => $this->user_id,
-			'date' => gmdate('Y-m-d H:i:s'),
-			'amount' => $amount,
+			'date' => gmdate('Y-m-d H:i:s', $d),
+			'year' => gmdate('Y', $d),
+			'month' => gmdate('m', $d),
+			'income' => $amount,
 			'description' => $description,
 			'url' => $url,
 			'balance' => $this->amount + $amount,
@@ -71,6 +74,31 @@ class Account extends ActiveRecord
 		$transaction->save(false);
 
 		$this->updateCounters(['amount' => $amount]);
+	}
+
+	/**
+	 * Add expense associated with user and update amount on accaunt
+	 * @param float $amount 
+	 * @param string $description 
+	 * @param string|null $url 
+	 * @return void
+	 */
+	public function addExpense($amount, $description, $url = null)
+	{
+		$d = time();
+		$transaction = new Transaction([
+			'user_id' => $this->user_id,
+			'date' => gmdate('Y-m-d H:i:s', $d),
+			'year' => gmdate('Y', $d),
+			'month' => gmdate('m', $d),
+			'expense' => $amount,
+			'description' => $description,
+			'url' => $url,
+			'balance' => $this->amount - $amount,
+		]);
+		$transaction->save(false);
+
+		$this->updateCounters(['amount' => -$amount]);
 	}
 
 }

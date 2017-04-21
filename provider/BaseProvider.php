@@ -61,7 +61,7 @@ abstract class BaseProvider extends Object implements ProviderInterface
 		if ($amount > $account->amount)
 			return $amount - $account->amount;
 
-		$account->addTransaction(-$amount, $model->paymentDescription(), $url);
+		$account->addExpense($amount, $model->paymentDescription(), $url);
 		$model->paymentSuccess();
 
 		return true;

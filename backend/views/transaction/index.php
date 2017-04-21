@@ -35,21 +35,25 @@ $this->params['breadcrumbs'] = [
 			},
 		],
 		[
-			'attribute' => 'receipt',
+			'attribute' => 'income',
+			'enableSorting' => false,
+			'contentOptions' => ['class' => 'text-success'],
 			'value' => function($model, $key, $index, $column) {
-				if (empty($model->receipt))
+				if ($model->income == 0)
 					return '';
 
-				return Yii::$app->formatter->asDecimal($model->receipt, 2);
+				return Yii::$app->formatter->asDecimal($model->income, 2);
 			}
 		],
 		[
-			'attribute' => 'paid',
+			'attribute' => 'expense',
+			'enableSorting' => false,
+			'contentOptions' => ['class' => 'text-danger'],
 			'value' => function($model, $key, $index, $column) {
-				if (empty($model->paid))
+				if ($model->expense == 0)
 					return '';
 
-				return Yii::$app->formatter->asDecimal($model->paid, 2);
+				return Yii::$app->formatter->asDecimal($model->expense, 2);
 			}
 		],
 		[
