@@ -41,13 +41,13 @@ class Module extends BackendModule {
 			return [];
 
 		return [
-			'<li class="divider"></li>',
-			['label' => Yii::t('payment', 'Payment providers'), 'url' => ["$base/payment/provider/index"]],
-			['label' => Yii::t('payment', 'Accounts'), 'url' => ["$base/payment/account/index"]],
-			['label' => Yii::t('payment', 'Invoices'), 'url' => ["$base/payment/invoice/index"]],
-			['label' => Yii::t('payment', 'Transactions'), 'url' => ["$base/payment/transaction/index"]],
-			['label' => Yii::t('payment', 'Turnovers'), 'url' => ["$base/payment/turnover/index"]],
-			'<li class="divider"></li>',
+			['label' => Yii::t('payment', 'Payment'), 'items' => [
+				['label' => Yii::t('payment', 'Payment providers'), 'url' => ["$base/payment/provider/index"]],
+				['label' => Yii::t('payment', 'Accounts'), 'url' => ["$base/payment/account/index"]],
+				['label' => Yii::t('payment', 'Invoices'), 'url' => ["$base/payment/invoice/index"]],
+				['label' => Yii::t('payment', 'Transactions'), 'url' => ["$base/payment/transaction/index"]],
+				['label' => Yii::t('payment', 'Turnovers'), 'url' => ["$base/payment/turnover/index"]],
+			]],
 		];
 	}
 
