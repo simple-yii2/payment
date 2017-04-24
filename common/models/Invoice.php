@@ -88,20 +88,32 @@ class Invoice extends ActiveRecord
 		if ($this->state == self::STATE_SUCCESS)
 			return false;
 
-		//invoice
-		$this->state = self::STATE_SUCCESS;
-		$this->payDate = gmdate('Y-m-d H:i:s');
-		$this->refundDate = null;
-		$this->update(false, ['state', 'payDate', 'refundDate']);
+		$transaction = Yii::$app->db->beginTransaction();
 
-		//transaction
-		$description = Yii::t('payment', '{provider} (Invoice #{number} of {date})', [
-			'provider' => $provider->name(),
-			'number' => $this->id,
-			'date' => Yii::$app->formatter->asDate($this->createDate, 'short'),
-		]);
-		$account = Account::findByUser($this->user_id);
-		$account->addIncome($this->amount, $description);
+		try {
+			//invoice
+			$this->state = self::STATE_SUCCESS;
+			$this->payDate = gmdate('Y-m-d H:i:s');
+			$this->refundDate = null;
+			$this->update(false, ['state', 'payDate', 'refundDate']);
+
+			//transaction
+			$description = Yii::t('payment', '{provider} (Invoice #{number} of {date})', [
+				'provider' => $provider->name(),
+				'number' => $this->id,
+				'date' => Yii::$app->formatter->asDate($this->createDate, 'short'),
+			]);
+			$account = Account::findByUser($this->user_id);
+			$account->addIncome($this->amount, $description);
+
+			$transaction->commit();
+		} catch (\Exception $e) {
+			$transaction->rollBack();
+			throw $e;
+		} catch (\Throwable $e) {
+			$transaction->rollBack();
+			throw $e;
+		}
 
 		//model
 		if ($model = $this->getModel())
