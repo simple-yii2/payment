@@ -60,6 +60,20 @@ class Invoice extends ActiveRecord
 	}
 
 	/**
+	 * Getter for payment provider associated with invoice
+	 * @return ProviderInterface|null
+	 */
+	public function getProvider()
+	{
+		$provider = Yii::createObject($this->provider);
+
+		if (!($provider instanceof ProviderInterface))
+			return null;
+
+		return $provider;
+	}
+
+	/**
 	 * Account relation
 	 * @return yii\db\ActiveQueryInterface
 	 */

@@ -10,6 +10,7 @@ return [
 	'Invoice #{number}' => 'Счет №{number}',
 	'Turnovers' => 'Обороты',
 	'Apply' => 'Применить',
+	'Process' => 'Обработать',
 
 	'Date' => 'Дата',
 	'Income' => 'Приход',
@@ -37,4 +38,7 @@ return [
 	'Error while processing request.' => 'Во время выполнения запроса произошла ошибка.',
 	'Invoice not found.' => 'Счет не найден.',
 	'Item not found.' => 'Элемент не найден.',
+	'Payment provider not found.' => 'Платежная система не найдена.',
+	'Invoice processed.' => 'Счет обработан.',
+	'Processing failed.' => 'Обработка не дала результата.',
 ];

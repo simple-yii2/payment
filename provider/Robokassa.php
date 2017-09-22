@@ -171,7 +171,10 @@ class Robokassa extends BaseProvider
 		Yii::$app->getResponse()->redirect(Yii::$app->getUser()->getReturnUrl());
 	}
 
-	private function processInvoice(Invoice $invoice)
+	/**
+	 * @inheritdoc
+	 */
+	public function processInvoice(Invoice $invoice)
 	{
 		$state = $this->invoiceState($invoice);
 		if ($state === false)

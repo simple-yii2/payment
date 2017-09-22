@@ -58,4 +58,29 @@ class InvoiceController extends Controller
 		]);
 	}
 
+	/**
+	 * Process
+	 * @param int $id 
+	 * @return string
+	 */
+	public function actionProcess($id)
+	{
+		$model = InvoiceSearch::findOne($id);
+		if ($model === null)
+			throw new BadRequestHttpException(Yii::t('payment', 'Item not found.'));
+
+		$provider = $model->getProvider();
+		if ($provider === null)
+			throw new BadRequestHttpException(Yii::t('payment', 'Payment provider not found.'));
+
+		$session = Yii::$app->getSession();
+		if ($provider->processInvoice($model)) {
+			$session->setFlash('success', Yii::t('payment', 'Invoice processed.'));
+		} else {
+			$session->setFlash('warning', Yii::t('payment', 'Processing failed.'));
+		}
+
+		return $this->redirect(['view', 'id' => $model->id]);
+	}
+
 }

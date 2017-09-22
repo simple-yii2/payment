@@ -2,6 +2,8 @@
 
 namespace cms\payment\common\components;
 
+use cms\payment\common\models\Invoice;
+
 /**
  * Interface for processing center provider
  */
@@ -39,5 +41,12 @@ interface ProviderInterface
 	 * @return void
 	 */
 	public function fail();
+
+	/**
+	 * Process invoice (check state and change if necessary)
+	 * @param Invoice $invoice 
+	 * @return boolean
+	 */
+	public function processInvoice(Invoice $invoice);
 
 }

@@ -47,6 +47,10 @@ switch ($model->state) {
 ?>
 <h1><?= Html::encode($title) ?></h1>
 
+<div class="btn-toolbar" role="toolbar">
+	<?= Html::a(Yii::t('payment', 'Process'), ['process', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+</div>
+
 <table class="table table-bordered">
 	<tbody>
 		<tr><th><?= $model->getAttributeLabel('user_email') ?></th><td><?= $formatter->asHtml($user) ?></td></tr>
