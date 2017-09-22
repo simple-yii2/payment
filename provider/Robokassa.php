@@ -36,7 +36,7 @@ class Robokassa extends BaseProvider
 	/**
 	 * @var string
 	 */
-	private $_opStateUrl = 'https://merchant.roboxchange.com/WebService/Service.asmx/OpState';
+	private $_opStateUrl = 'https://auth.robokassa.ru/Merchant/WebService/Service.asmx/OpState';
 
 	/**
 	 * @var array
